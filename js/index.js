@@ -8,13 +8,13 @@ const displayCategory = (data) => {
     const categoriesContainer = document.getElementById('category-container');
     data.news_category.forEach(singleCategory => {
         // console.log(singleCategory)
-            categoriesContainer.innerHTML += 
+        categoriesContainer.innerHTML +=
             `
         <a  class="navbar-brand" href="#"   onclick="loadCategoryNews('${singleCategory.category_id}', '${singleCategory?.category_name}')">${singleCategory?.category_name}</a>
         `;
-    // -------------
-    // Another option
-    // -------------------
+        // -------------
+        // Another option
+        // -------------------
         // const linkContainer = document.createElement('p');
         // linkContainer.innerHTML = `
         // <a onclick="loadCategoryNews('${singleCategory.category_id}', '${singleCategory?.category_name}')" class="navbar-brand" href="">${singleCategory?.category_name}</a>
@@ -36,4 +36,24 @@ const displayCategoryNews = (data, category_name) => {
     console.log(data)
     document.getElementById('news-count').innerText = data.length;
     document.getElementById('category-name').innerText = category_name;
+    const allNewsContainer = document.getElementById('all-news');
+    allNewsContainer.textContent = '';
+    data.forEach(allNews => {
+        console.log(allNews)
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('col');
+        newDiv.innerHTML = `
+        <div class="col">
+        <div class="card h-100">
+          <img src="${allNews.image_url}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${allNews.title}</h5>
+            <p class="card-text">${allNews.details.slice(0, 200)}</p>
+          </div>
+        </div>
+      </div>
+        
+        `;
+        allNewsContainer.appendChild(newDiv)
+    })
 }
